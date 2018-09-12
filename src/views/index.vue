@@ -1,7 +1,5 @@
 <template>
   <div class="index">
-    <!-- <button @click="toggleMenu()">mm</button> -->
-        
     <h1 class="header">分析平台</h1>
     <div class="content">
       <div class="left" :span="d_toggle ? 1 : 4">
@@ -22,7 +20,7 @@
         </Menu>
       </div>
       <div class="right">
-      <v-chart :options="polar"/>
+      <v-chart :options="data" :auto-resize="true" @dblclick="dblclick"/>
       </div>
     </div>
   </div>
@@ -30,9 +28,6 @@
 
 
 <script>
-// import ECharts from "vue-echarts/components/ECharts";
-// import "echarts/lib/chart/line";
-// import "echarts/lib/component/polar";
 import "echarts/lib/chart/bar";
 import "echarts/lib/chart/pie";
 import "echarts/lib/component/tooltip";
@@ -40,47 +35,44 @@ import "echarts/lib/chart/line";
 import "echarts/lib/component/polar";
 export default {
   data: function() {
-    // let data = [];
-
-    // for (let i = 0; i <= 360; i++) {
-    //   let t = i / 180 * Math.PI;
-    //   let r = Math.sin(2 * t) * Math.cos(2 * t);
-    //   data.push([r, i]);
-    // }
-
     return {
       d_toggle: false,
-      polar: {
-        title: {
-          text: "极坐标双数值轴"
-        },
-        legend: {
-          data: ["line"]
-        },
-        polar: {
-          center: ["50%", "54%"]
-        },
+      data: {
+        // title:'linear',
+        color: ["#3398DB"],
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            type: "cross"
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
           }
         },
-        angleAxis: {
-          type: "value",
-          startAngle: 0
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true
         },
-        radiusAxis: {
-          min: 0
-        },
+        xAxis: [
+          {
+            type: "category",
+            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            axisTick: {
+              alignWithLabel: true
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: "value"
+          }
+        ],
         series: [
           {
-            // coordinateSystem: "polar",
-            name: "销量",
+            name: "mm",
             type: "bar",
-            // showSymbol: false,
-            // data: data
-            data:[5,20,36,10,10,20]
+            barWidth: "60%",
+            data: [10, 52, 200, 334, 390, 330, 1220]
           }
         ],
         animationDuration: 2000
@@ -91,6 +83,9 @@ export default {
     toggleMenu() {
       console.log(this.d_toggle);
       this.d_toggle = !this.d_toggle;
+    },
+    dblclick(_params){
+      console.log(_params)
     }
   }
 };
@@ -99,10 +94,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.echarts {
-  width: 100%;
-  height: 100%;
-}
+// .echarts {
+//   width: 50vw;
+//   height: 50vh;
+// }
 .header {
   height: 80px;
   line-height: 80px;
