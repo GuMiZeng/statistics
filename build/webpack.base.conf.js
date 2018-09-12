@@ -19,8 +19,7 @@ module.exports = {
         path: config.build.assetsRoot,
         filename: '[name].js',
         publicPath: process.env.NODE_ENV === 'production' ?
-            config.build.assetsPublicPath :
-            config.dev.assetsPublicPath
+            config.build.assetsPublicPath : config.dev.assetsPublicPath
     },
     // 不打包 cdnyinru
     externals: {
@@ -45,7 +44,13 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+                include: [
+                    resolve('src'),
+                    resolve('test'),
+                    resolve('node_modules/webpack-dev-server/client'),
+                    resolve('node_modules/vue-echarts'),
+                    resolve('node_modules/resize-detector')
+                ]
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

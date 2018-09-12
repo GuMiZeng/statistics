@@ -4,6 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import ECharts from 'vue-echarts/components/ECharts.vue'
+
+// import 'echarts/lib/chart/bar'
+// import 'echarts/lib/component/tooltip'
+// import 'echarts/lib/chart/line'
+// import 'echarts/lib/component/polar'
+
+Vue.component('v-chart', ECharts)
 
 Vue.config.productionTip = false
 
